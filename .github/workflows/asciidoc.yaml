@@ -44,8 +44,7 @@ jobs:
           gem install bundler
           bundle install
           make build-html
-      - id: deployment
-        uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v3
         with:
           path: build/
       - id: deployment
