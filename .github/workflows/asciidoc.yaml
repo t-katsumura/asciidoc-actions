@@ -41,11 +41,11 @@ jobs:
             ruby-dev \
             libwebp-dev \
             libzstd-dev
-          gem install bundler
-          bundle install
+          sudo gem install bundler
+          sudo bundle install
           make build-html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - uses: actions/deploy-pages@v4
+        id: deployment
