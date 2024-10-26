@@ -29,8 +29,8 @@ jobs:
             ruby-dev \
             libwebp-dev \
             libzstd-dev
-          bundle install
           gem install bundler
+          bundle install
           make build-html
       - id: deployment
         uses: actions/upload-pages-artifact@v3
