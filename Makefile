@@ -14,10 +14,10 @@ COMMON_OPTS := --trace \
 								-a pdf-fontsdir=fonts \
 								-D build \
 								--failure-level=ERROR
-# REQUIRES := --require=asciidoctor-bibtex \
-#             --require=asciidoctor-diagram \
-#             --require=asciidoctor-lists
-#             # --require=asciidoctor-mathematical
+REQUIRES := --require=asciidoctor-bibtex \
+            --require=asciidoctor-diagram \
+            --require=asciidoctor-lists
+            # --require=asciidoctor-mathematical
 
 DOCS_PDF := $(addprefix $(BUILD_DIR)/, $(addsuffix .pdf, $(DOCS)))
 DOCS_HTML := $(addprefix $(BUILD_DIR)/, $(addsuffix .html, $(DOCS)))
