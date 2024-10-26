@@ -7,11 +7,34 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Upload static files as artifact
-        id: deployment
+      - run: |
+          sudo apt -y update
+          sudo apt -y install \
+            bison \
+            build-essential \
+            cmake \
+            curl \
+            flex \
+            fonts-lyx \
+            graphviz \
+            default-jre \
+            libcairo2-dev \
+            libffi-dev \
+            libgdk-pixbuf2.0-dev \
+            libglib2.0-dev \
+            libpango1.0-dev \
+            libxml2-dev \
+            pkg-config \
+            ruby \
+            ruby-dev \
+            libwebp-dev \
+            libzstd-dev
+          bundle install
+          make build-html
+      - id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build_outputs_folder/
+          path: build/
 
   deploy:
     needs: build
@@ -23,6 +46,5 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
+      - id: deployment
         uses: actions/deploy-pages@v4

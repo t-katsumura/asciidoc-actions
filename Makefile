@@ -1,4 +1,3 @@
-
 DOCS := hello
 
 SRC_DIR := src
