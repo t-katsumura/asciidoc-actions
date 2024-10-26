@@ -1,4 +1,4 @@
-DOCS := hello
+DOCS := foo
 
 SRC_DIR := src
 BUILD_DIR := build
