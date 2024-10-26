@@ -1,0 +1,2 @@
+:company: MyCompany
+:doctype: book
