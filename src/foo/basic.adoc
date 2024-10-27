@@ -16,7 +16,7 @@ image:images/github-mark.png[]
 puts 'Hello, World!'
 ----
 
-[mermaid,sequenceDiagram,svg]
+[mermaid,images/sequenceDiagram,svg]
 ....
 sequenceDiagram
   participant Alice
@@ -25,7 +25,7 @@ sequenceDiagram
   Bob-->>Alice: Great!
 ....
 
-[mermaid,classDiagram,svg]
+[mermaid,images/classDiagram,svg]
 ....
 classDiagram
   BaseClass |>-- Server
@@ -34,7 +34,7 @@ classDiagram
 ....
 
 
-[plantuml,example,svg]
+[plantuml,images/example,svg]
 ....
 class Animal {
   run()
@@ -45,7 +45,7 @@ class Cat extends Animal {
 ....
 
 
-[graphviz,graph,svg]
+[graphviz,images/graph,svg]
 ....
 digraph mygraph {
   fontname="Helvetica,Arial,sans-serif"

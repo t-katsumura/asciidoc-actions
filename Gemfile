@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 gem 'asciidoctor'
+gem 'asciidoctor-lists'
 gem 'asciidoctor-bibtex'
 gem 'asciidoctor-diagram'
 gem 'mathematical'
