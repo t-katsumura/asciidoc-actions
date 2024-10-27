@@ -1,50 +1,52 @@
-DOCS := foo
 
-SRC_DIR := src
-BUILD_DIR := build
+SRC_DIR := src/
+DST_DIR := build/
 
-# ENV := LANG=C.utf8
-ASCIIDOCTOR_PDF := $(ENV) asciidoctor-pdf
-ASCIIDOCTOR_HTML := $(ENV) asciidoctor
-ASCIIDOCTOR_EPUB := $(ENV) asciidoctor-epub3
+OPTIONS := --doctype=book \
+					--trace \
+					--warnings \
+					--failure-level=ERROR \
+					--attribute toc \
+					--attribute sectnums \
+					--attribute sectlinks \
+					--attribute sectanchors \
+					--attribute compress \
+					--attribute mathematical-format=svg \
+					--attribute pdf-fontsdir=fonts
+REQUIRES := --require=asciidoctor-diagram \
+            --require=asciidoctor-lists \
+            --require=asciidoctor-mathematical
 
-COMMON_OPTS := --trace \
-								-a compress \
-								-a mathematical-format=svg \
-								-a pdf-fontsdir=fonts \
-								-D build \
-								--failure-level=ERROR
-REQUIRES := --require=asciidoctor-bibtex \
-            --require=asciidoctor-diagram \
-            --require=asciidoctor-lists
-            # --require=asciidoctor-mathematical
+DOCS_ADOC := $(shell find $(SRC_DIR) -type f -name *.adoc)
 
-DOCS_PDF := $(addprefix $(BUILD_DIR)/, $(addsuffix .pdf, $(DOCS)))
-DOCS_HTML := $(addprefix $(BUILD_DIR)/, $(addsuffix .html, $(DOCS)))
-DOCS_EPUB := $(addprefix $(BUILD_DIR)/, $(addsuffix .epub, $(DOCS)))
+SRC_DIRS := $(shell find $(SRC_DIR) -type d -not -path $(SRC_DIR))
+TGT_DIRS := $(subst $(SRC_DIR),,$(SRC_DIRS))
+TGT_ALL := $(addsuffix /%.all, $(TGT_DIRS))
+TGT_PDF := $(addsuffix /%.pdf, $(TGT_DIRS))
+TGT_HTML := $(addsuffix /%.html, $(TGT_DIRS))
+TGT_EPUB := $(addsuffix /%.epub, $(TGT_DIRS))
 
-.PHONY: build-docs
-build-docs: 
+.PHONY: $(TGT_ALL)
+$(TGT_ALL):
+	$(MAKE) $(@D)/$(*F).pdf
+	$(MAKE) $(@D)/$(*F).html
+	$(MAKE) $(@D)/$(*F).epub
 
-.PHONY: build-pdf
-build-pdf: $(DOCS_PDF)
+.PHONY: $(TGT_PDF) $(TGT_HTML) $(TGT_EPUB)
+$(TGT_PDF) $(TGT_HTML) $(TGT_EPUB): 
+	$(MAKE) $(DST_DIR)$@
 
-.PHONY: build-html
-build-html: $(DOCS_HTML)
+$(DST_DIR)%.pdf: $(SRC_DIR)%.adoc $(DOCS_ADOC)
+	mkdir -p $(@D)
+	cp -r $(<D)/images $(@D)
+	asciidoctor-pdf $(OPTIONS) $(REQUIRES) --destination-dir $(@D) $<
 
-.PHONY: build-epub
-build-epub: $(DOCS_EPUB)
+$(DST_DIR)%.html: $(SRC_DIR)%.adoc $(DOCS_ADOC)
+	mkdir -p $(@D)
+	cp -r $(<D)/images $(@D)
+	asciidoctor $(OPTIONS) $(REQUIRES) --destination-dir $(@D) $<
 
-ALL_SRCS := $(shell git ls-files $(SRC_DIR))
-
-$(BUILD_DIR)/%.pdf: $(SRC_DIR)/%.adoc $(ALL_SRCS)
-	mkdir -p $(BUILD_DIR)
-	$(ASCIIDOCTOR_PDF) $(COMMON_OPTS) $(REQUIRES) $<
-
-$(BUILD_DIR)/%.html: $(SRC_DIR)/%.adoc $(ALL_SRCS)
-	mkdir -p $(BUILD_DIR)
-	$(ASCIIDOCTOR_HTML) $(COMMON_OPTS) $(REQUIRES) $<
-
-$(BUILD_DIR)/%.epub: $(SRC_DIR)/%.adoc $(ALL_SRCS)
-	mkdir -p $(BUILD_DIR)
-	$(ASCIIDOCTOR_EPUB) $(COMMON_OPTS) $(REQUIRES) $<
+$(DST_DIR)%.epub: $(SRC_DIR)%.adoc $(DOCS_ADOC)
+	mkdir -p $(@D)
+	cp -r $(<D)/images $(@D)
+	asciidoctor-epub3 $(OPTIONS) $(REQUIRES) --destination-dir $(@D) $<

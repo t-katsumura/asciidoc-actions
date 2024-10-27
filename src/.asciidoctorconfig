@@ -1,11 +1,12 @@
-= My book
-
+:experimental:
+:icons: font
 :reproducible:
 :listing-caption: Listing
-:source-highlighter: rouge
+:source-highlighter: highlightjs
 :toc: top
 :sectnums:
 :toc-title: Index
 :chapter-label:
 
-include::foo/hello.adoc[]
+:company: MyCompany
+:doctype: book

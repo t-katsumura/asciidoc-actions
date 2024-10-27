@@ -46,9 +46,10 @@ jobs:
             libzstd-dev
           sudo gem install bundler
           sudo bundle install
-          make build-html
+          make foo/foo.all
+          make bar/bar.all
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: build/
+          path: build/**
       - uses: actions/deploy-pages@v4
         id: deployment

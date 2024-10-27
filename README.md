@@ -9,6 +9,11 @@ There are some processors for AsciiDoctor. See [Awesome AsciiDoc](https://gitlab
 
 [Asciidoctor](https://asciidoctor.org/) is used in this repository.
 
+- [Graphviz](https://docs.asciidoctor.org/diagram-extension/latest/diagram_types/graphviz/)
+- [Mermaid](https://docs.asciidoctor.org/diagram-extension/latest/diagram_types/mermaid/)
+- [PlantUML](https://docs.asciidoctor.org/diagram-extension/latest/diagram_types/plantuml/)
+- [Asciidoctor Mathematical](https://docs.asciidoctor.org/asciidoctor/latest/stem/mathematical/)
+
 ## References
 
 - [AsciiDoc](https://asciidoc.org/)

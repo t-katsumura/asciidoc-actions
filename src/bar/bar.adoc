@@ -1,0 +1,4 @@
+
+= My book
+
+include::basic.adoc[]

@@ -1,3 +1,5 @@
 /build
 /dependencies
 Gemfile.lock
+*.cache
+
