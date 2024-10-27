@@ -46,12 +46,12 @@ jobs:
             libzstd-dev
           sudo gem install bundler
           sudo bundle install
-      - run: npm install -g @mermaid-js/mermaid-cli
+          npm install -g @mermaid-js/mermaid-cli
       - run: |
           make foo/foo.all
           make bar/bar.all
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: build/**
+          path: build/
       - uses: actions/deploy-pages@v4
         id: deployment
